@@ -10,7 +10,10 @@ export const getAllInvestments = async  (_: Request, res: Response) =>{
 
 export const getInvestmentById = async (req: Request, res: Response) =>{
     const investment = await service.getById(Number(req.params.id));
-    if(!investment) return res.status(404).json({message:  'Investment not found.' });
+    if(!investment) {
+        res.status(404).json({message:  'Investment not found.' });
+        return;
+    }
     res.json(investment); 
 };
 

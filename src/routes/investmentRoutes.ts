@@ -1,4 +1,4 @@
-import {Router} from 'express';
+import express from 'express';
 import {
     getAllInvestments,
     getInvestmentById,
@@ -7,7 +7,7 @@ import {
     deleteInvestment
 } from '../controllers/InvestmentController';
 
-const router = Router();
+const router = express.Router();
 
 router.get('/', getAllInvestments);
 router.get('/:id', getInvestmentById);
