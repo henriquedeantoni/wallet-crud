@@ -15,4 +15,8 @@ export class InvestmentService{
     create(data: Omit<Investment, 'id'>){
         return this.investmentRepository.create(data);
     }
+
+    update(id: number, data: Partial<Investment>){
+        return this.investmentRepository.update(id, data);
+    }
 }

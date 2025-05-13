@@ -19,3 +19,7 @@ export const createInvestment = async (req: Request, res: Response) =>{
     res.status(201).json({message: 'Investment Created'});
 }
 
+export const updatedInvestment = async (req: Request, res: Response) =>{
+    await service.update(Number(req.params.id), req.body);
+    res.json({message: 'Updated'});
+};
