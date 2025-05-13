@@ -13,3 +13,9 @@ export const getInvestmentById = async (req: Request, res: Response) =>{
     if(!investment) return res.status(404).json({message:  'Investment not found' });
     res.json(investment); 
 }
+
+export const createInvestment = async (req: Request, res: Response) =>{
+    await service.create(req.body);
+    res.status(201).json({message: 'Investment Created'});
+}
+

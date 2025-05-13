@@ -10,4 +10,9 @@ export class InvestmentRepository{
         const [rows] = await db.query('SELECT * FROM investments WHERE id = ?', [id]);
         return (rows as Investment[])[0] || null;
     }
+
+    async create(investment: Omit<Investment, 'id'>):Promise<void> {
+        const{name, type, amount} = investment;
+        await db.query('INSERT INTO investments (name, type, amount) Values (?,?,?)', [name, type, amount]);
+    }
 }

@@ -11,4 +11,8 @@ export class InvestmentService{
     getById(id: number){
         return this.investmentRepository.findById(id);
     }
+
+    create(data: Omit<Investment, 'id'>){
+        return this.investmentRepository.create(data);
+    }
 }
