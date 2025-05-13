@@ -10,16 +10,21 @@ export const getAllInvestments = async  (_: Request, res: Response) =>{
 
 export const getInvestmentById = async (req: Request, res: Response) =>{
     const investment = await service.getById(Number(req.params.id));
-    if(!investment) return res.status(404).json({message:  'Investment not found' });
+    if(!investment) return res.status(404).json({message:  'Investment not found.' });
     res.json(investment); 
 }
 
 export const createInvestment = async (req: Request, res: Response) =>{
     await service.create(req.body);
-    res.status(201).json({message: 'Investment Created'});
+    res.status(201).json({message: 'Investment Created.'});
 }
 
 export const updatedInvestment = async (req: Request, res: Response) =>{
     await service.update(Number(req.params.id), req.body);
-    res.json({message: 'Updated'});
+    res.json({message: 'Investment Updated.'});
+};
+
+export const deleteInvestment = async (req: Request, res: Response) =>{
+    await service.delete(Number(req.params.id));
+    res.json({message: 'Investment Deleted.'});
 };

@@ -19,4 +19,8 @@ export class InvestmentService{
     update(id: number, data: Partial<Investment>){
         return this.investmentRepository.update(id, data);
     }
+
+    delete(id:number){
+        return this.investmentRepository.deleyte(id);
+    }
 }

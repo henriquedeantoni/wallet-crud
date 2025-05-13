@@ -23,4 +23,8 @@ export class InvestmentRepository{
         const values = [...Object.values(investment), id];
         await db.query('UPDATE investments SET $[fields] WHERE id = ?', values);
     }
+
+    async deleyte(id: number):Promise<void> {
+        await db.query('DELETE FROM investments WHERE id = ?', [id]);
+    }
 }
