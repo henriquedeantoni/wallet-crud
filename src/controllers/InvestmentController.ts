@@ -12,14 +12,14 @@ export const getInvestmentById = async (req: Request, res: Response) =>{
     const investment = await service.getById(Number(req.params.id));
     if(!investment) return res.status(404).json({message:  'Investment not found.' });
     res.json(investment); 
-}
+};
 
 export const createInvestment = async (req: Request, res: Response) =>{
     await service.create(req.body);
     res.status(201).json({message: 'Investment Created.'});
 }
 
-export const updatedInvestment = async (req: Request, res: Response) =>{
+export const updateInvestment = async (req: Request, res: Response) =>{
     await service.update(Number(req.params.id), req.body);
     res.json({message: 'Investment Updated.'});
 };

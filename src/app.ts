@@ -1,5 +1,5 @@
 import express from 'express';
-import investmentRoutes from './routes/investmentRoutes';
+import investmentRoutes from './routes/InvestmentRoutes';
 
 const app = express();
 app.use(express.json());
