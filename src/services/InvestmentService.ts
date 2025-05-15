@@ -21,6 +21,6 @@ export class InvestmentService{
     }
 
     delete(id:number){
-        return this.investmentRepository.deleyte(id);
+        return this.investmentRepository.delete(id);
     }
 }

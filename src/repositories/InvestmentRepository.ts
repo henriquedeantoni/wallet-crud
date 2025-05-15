@@ -24,7 +24,7 @@ export class InvestmentRepository{
         await db.query('UPDATE investments SET $[fields] WHERE id = ?', values);
     }
 
-    async deleyte(id: number):Promise<void> {
+    async delete(id: number):Promise<void> {
         await db.query('DELETE FROM investments WHERE id = ?', [id]);
     }
 }
