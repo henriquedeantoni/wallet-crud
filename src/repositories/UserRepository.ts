@@ -15,4 +15,22 @@ export class UserRepository{
         );
     }
 
+    
+  async update(
+    id: number,
+    updates: Partial<Omit<User, 'id'>>    
+  ):Promise<void>{
+    const fields = Object.keys(updates);
+    const values: (string | number | Date)[] = Object.values(updates);
+
+    if(fields.length === 0) return;
+
+    const setClause = fields.map(field => `${field} = ?`).join(', ');
+    values.push(id);
+
+    const query = `UPDATE users SET ${setClause}, upsadted_at = NOW() WHERE id = ?`;
+
+    await db.query(query, values);
+  }
+
 }

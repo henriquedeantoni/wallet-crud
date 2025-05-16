@@ -4,7 +4,7 @@ import { User } from '@src/models/User';
 import { UserRepository } from '@src/repositories/UserRepository';
 require('dotenv').config();
 
-const SECRET = 'process.env.###';
+const SECRET = 'mysecret';
 
 export class AuthService{
     constructor(private userRepository = new UserRepository()){}
@@ -26,6 +26,16 @@ export class AuthService{
 
     verifyToken(token: string){
         return jwt.verify(token, SECRET);
+    }
+
+    async update(
+        userId: number,
+        updates: Partial<Omit<User, 'id' | 'created_at' | 'updated_at'>>
+    ):Promise<void>{
+        if(updates.password){
+            updates.password = await bcrypt.hash(updates.password, 10);
+        };
+        await this.userRepository.update(userId, updates);
     }
 }
 
