@@ -1,5 +1,19 @@
 import { Investment } from "@src/models/Investment";
 import {db} from '../config/database'
+
+function mapInvestmentRow(row: any): Investment {
+  return {
+    id: row.id,
+    userId: row.user_id,
+    assetId: row.asset_id,
+    quantity: row.quantity,
+    purchasePrice: row.purchase_price,
+    purchaseDate: row.purchase_date,
+    createdAt: row.created_at,
+    updatedAt: row.updated_at,
+  };
+}
+
 export class InvestmentRepository{
     async findAll():Promise<Investment[]>{
         const [rows] = await db.query('SELECT * FROM investments');
@@ -12,8 +26,8 @@ export class InvestmentRepository{
     }
 
     async create(investment: Omit<Investment, 'id'>):Promise<void> {
-        const{name, type, amount} = investment;
-        await db.query('INSERT INTO investments (name, type, amount) Values (?,?,?)', [name, type, amount]);
+        const{assetName, type, amount} = investment;
+        await db.query('INSERT INTO investments (name, type, amount) Values (?,?,?)', [assetName, type, amount]);
     }
 
     async update(id: number, investment: Partial<Investment>):Promise<void>{

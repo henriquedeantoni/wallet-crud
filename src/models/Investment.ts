@@ -1,6 +1,6 @@
 export interface Investment{
     id: number;
-    name: string;
+    assetName: string;
     type: string;
     amount: number;
     created_at?: Date;

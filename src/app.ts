@@ -1,5 +1,5 @@
 import express from 'express';
-import investmentRoutes from './routes/InvestmentRoutes';
+import investmentRoutes from './routes/investmentRoutes';
 import authRoutes from './routes/authRoutes';
 import { authenticateToken } from './middlewares/authMiddleware';
 
