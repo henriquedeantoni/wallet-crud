@@ -1,8 +1,10 @@
-export interface Investment{
-    id: number;
-    assetName: string;
-    type: string;
-    amount: number;
-    created_at?: Date;
-    upsadted_at?: Date;
+export interface Investment {
+  id: number;
+  userId: number;
+  assetId: number;
+  quantity: number;
+  purchasePrice: number;
+  purchaseDate: string; // ou Date
+  createdAt?: Date;
+  updatedAt?: Date;
 }
