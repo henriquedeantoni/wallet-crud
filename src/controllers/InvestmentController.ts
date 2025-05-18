@@ -20,6 +20,11 @@ export const getInvestmentById = async (req: Request, res: Response) =>{
 
 export const getInvestmentsByUser = async (req: Request, res: Response) => {
   const userId = req.user?.id;
+
+  if (typeof userId !== 'number') {
+    return res.status(401).json({ error: 'Unauthorized: User ID not found' });
+  }
+
   try {
     const investments = await service.findByUserId(userId);
     res.json(investments.map(mapInvestmentRow));
