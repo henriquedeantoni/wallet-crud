@@ -2,9 +2,16 @@ import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import { User } from '@src/models/User';
 import { UserRepository } from '@src/repositories/UserRepository';
-require('dotenv').config();
+import dotenv from 'dotenv';
+dotenv.config();
 
-const SECRET = 'mysecret';
+const secret = process.env.SECRET_JWT;
+
+if (!secret) {
+  throw new Error('SECRET_JWT must be defined.');
+}
+
+const SECRET: string = secret;
 
 export class AuthService{
     constructor(private userRepository = new UserRepository()){}
