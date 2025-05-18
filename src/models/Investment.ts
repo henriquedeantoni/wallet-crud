@@ -4,7 +4,7 @@ export interface Investment {
   assetId: number;
   quantity: number;
   purchasePrice: number;
-  purchaseDate: Date; // ou Date
+  purchaseDate: Date;
   createdAt?: Date;
   updatedAt?: Date;
 }
