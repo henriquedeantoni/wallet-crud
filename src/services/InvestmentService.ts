@@ -3,24 +3,27 @@ import {InvestmentRepository} from "@src/repositories/InvestmentRepository";
 
 export class InvestmentService{
     constructor(private investmentRepository = new InvestmentRepository()){}
+  async getAll(): Promise<Investment[]> {
+    return await this.investmentRepository.findAll();
+  }
 
-    getAll(){
-        return this.investmentRepository.findAll();
-    }
+  async getById(id: number): Promise<Investment | null> {
+    return await this.investmentRepository.findById(id);
+  }
 
-    getById(id: number){
-        return this.investmentRepository.findById(id);
-    }
+ async create(investmentData: Omit<Investment, 'id' | 'createdAt' | 'updatedAt'>): Promise<Investment> {
+    return await this.investmentRepository.create(investmentData);
+  }
 
-    create(data: Omit<Investment, 'id'>){
-        return this.investmentRepository.create(data);
-    }
+  async findByUserId(userId: number): Promise<Investment[]> {
+    return await this.investmentRepository.findByUserId(userId);
+  }
 
-    update(id: number, data: Partial<Investment>){
-        return this.investmentRepository.update(id, data);
-    }
+  async update(id: number, updates: Partial<Omit<Investment, 'id' | 'userId' | 'createdAt' | 'updatedAt'>>): Promise<void> {
+    return await this.investmentRepository.update(id, updates);
+  }
 
-    delete(id:number){
-        return this.investmentRepository.delete(id);
-    }
+  async delete(id: number): Promise<void> {
+    return await this.investmentRepository.delete(id);
+  }
 }

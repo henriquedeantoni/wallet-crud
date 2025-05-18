@@ -34,21 +34,27 @@ export class InvestmentRepository{
         return Array.isArray(rows) ? rows.map(mapInvestmentRow) : [];
     }
 
-  async create(investment: Omit<Investment, 'id' | 'createdAt' | 'updatedAt'>): Promise<void> {
-    const {
-      userId,
-      assetId,
-      quantity,
-      purchasePrice,
-      purchaseDate,
-    } = investment;
+async create(investment: Omit<Investment, 'id' | 'createdAt' | 'updatedAt'>): Promise<Investment> {
+  const {
+    userId,
+    assetId,
+    quantity,
+    purchasePrice,
+    purchaseDate,
+  } = investment;
 
-    await db.query(
-      `INSERT INTO investments (user_id, asset_id, quantity, purchase_price, purchase_date)
-       VALUES (?, ?, ?, ?, ?)`,
-      [userId, assetId, quantity, purchasePrice, purchaseDate]
-    );
-  }
+  const [result] = await db.query(
+    `INSERT INTO investments (user_id, asset_id, quantity, purchase_price, purchase_date)
+     VALUES (?, ?, ?, ?, ?)`,
+    [userId, assetId, quantity, purchasePrice, purchaseDate]
+  );
+
+  const insertId = (result as any).insertId;
+
+  const [rows] = await db.query('SELECT * FROM investments WHERE id = ?', [insertId]);
+
+  return mapInvestmentRow((rows as any)[0]);
+}
 
      async update(
     id: number,
