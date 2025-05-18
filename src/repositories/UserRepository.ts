@@ -1,13 +1,17 @@
 import {db} from '../config/database';
 import {User} from '../models/User';
+import { mapUserRow } from '@src/utils/mappers';
 
 export class UserRepository{
     async findByEmail(email: string): Promise<User | null> {
         const [rows] = await db.query('SELECT * FROM users WHERE EMAIL = ?', [email]);
-        return (rows as User[])[0] || null;
+        if (Array.isArray(rows) && rows.length>0){
+          return mapUserRow(rows[0]);
+        }
+        return null;
     }
 
-    async create(user: Omit<User, 'id' | 'created_at' | 'updated_at' >): Promise<void>{
+    async create(user: Omit<User, 'id' | 'createdAt' | 'updatedAt' >): Promise<void>{
         const{email, firstName, lastName, tel, password} = user;
         await db.query(
             `INSERT INTO users (email, firstName, LastName, tel, password) VALUES (?,?,?,?,?)`,
@@ -25,7 +29,16 @@ export class UserRepository{
 
     if(fields.length === 0) return;
 
-    const setClause = fields.map(field => `${field} = ?`).join(', ');
+    const setClause = fields.map(field => {
+      switch (field) {
+        case 'firstName': return 'first_name = ?';
+        case 'lastName': return 'last_name = ?';
+        case 'createdAt': return 'created_at = ?';
+        case 'updatedAt': return 'updated_at = ?';
+        default: return `${field} = ?`;
+      }
+    }).join(', ');
+    
     values.push(id);
 
     const query = `UPDATE users SET ${setClause}, upsadted_at = NOW() WHERE id = ?`;

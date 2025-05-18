@@ -34,7 +34,7 @@ export const getInvestmentsByUser = async (req: Request, res: Response) => {
 };
 
 export const createInvestment = async (req: Request, res: Response) => {
-  const userId = req.body.userId || req.user?.id; // extraído do token
+  const userId = req.body.userId || req.user?.id; 
   const {
     assetId,
     quantity,

@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import {AuthService} from '../services/authService';
+import { mapUserRow } from "@src/utils/mappers";
 
 const service = new AuthService();
 

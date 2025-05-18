@@ -1,4 +1,6 @@
 import { Investment } from "@src/models/Investment";
+import { User } from '@src/models/User';
+
 export function mapInvestmentRow(row: any): Investment {
   return {
     id: row.id,
@@ -9,5 +11,18 @@ export function mapInvestmentRow(row: any): Investment {
     purchaseDate: row.purchase_date,
     createdAt: row.created_at,
     updatedAt: row.updated_at,
+  };
+}
+
+export function mapUserRow(row: any): User {
+  return {
+    id: row.id,
+    email: row.email,
+    firstName: row.firstName,
+    lastName: row.lastName,
+    tel: row.tel,
+    password: row.password,
+    createdAt: row.created_at,
+    updatedAt: row.updated_at
   };
 }
