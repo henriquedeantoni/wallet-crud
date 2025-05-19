@@ -5,7 +5,6 @@ import { authenticateToken } from '@src/middlewares/authMiddleware';
 const router = Router();
 router.post('/register', register);
 router.post('/login', login);
-
 router.put('/update', authenticateToken, updateUser);
 
 export default router;
