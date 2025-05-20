@@ -1,5 +1,5 @@
-import { Investment } from "@src/models/Investment";
-import { User } from '@src/models/User';
+import { Investment } from "../models/Investment";
+import { User } from '../models/User';
 
 export function mapInvestmentRow(row: any): Investment {
   return {

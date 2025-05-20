@@ -1,6 +1,6 @@
 import {db} from '../config/database';
 import {User} from '../models/User';
-import { mapUserRow } from '@src/utils/mappers';
+import { mapUserRow } from '../utils/mappers';
 
 export class UserRepository{
     async findByEmail(email: string): Promise<User | null> {

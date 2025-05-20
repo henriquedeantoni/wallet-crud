@@ -1,6 +1,6 @@
 import {Request, Response} from 'express';
-import { InvestmentService } from '@src/services/InvestmentService';
-import {mapInvestmentRow} from '@src/utils/mappers'
+import {InvestmentService} from '../services/InvestmentService';
+import {mapInvestmentRow} from '../utils/mappers'
 
 const service = new InvestmentService();
 
@@ -27,9 +27,9 @@ export const getInvestmentsByUser = async (req: Request, res: Response) => {
 
   try {
     const investments = await service.findByUserId(userId);
-    res.json(investments.map(mapInvestmentRow));
+    return res.json(investments.map(mapInvestmentRow));
   } catch (err) {
-    res.status(500).json({ error: (err as Error).message });
+    return res.status(500).json({ error: (err as Error).message });
   }
 };
 

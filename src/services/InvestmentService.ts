@@ -1,5 +1,5 @@
-import { Investment } from "@src/models/Investment";
-import {InvestmentRepository} from "@src/repositories/InvestmentRepository";
+import { Investment } from "../models/Investment";
+import {InvestmentRepository} from "../repositories/InvestmentRepository";
 
 export class InvestmentService{
     constructor(private investmentRepository = new InvestmentRepository()){}

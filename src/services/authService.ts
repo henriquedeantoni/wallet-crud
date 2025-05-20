@@ -1,7 +1,7 @@
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
-import { User } from '@src/models/User';
-import { UserRepository } from '@src/repositories/UserRepository';
+import { User } from '../models/User';
+import { UserRepository } from '../repositories/UserRepository';
 import dotenv from 'dotenv';
 dotenv.config();
 

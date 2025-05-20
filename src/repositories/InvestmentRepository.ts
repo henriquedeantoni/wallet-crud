@@ -1,6 +1,6 @@
-import { Investment } from "@src/models/Investment";
+import { Investment } from "../models/Investment";
 import {db} from '../config/database'
-import { mapInvestmentRow } from "@src/utils/mappers";
+import { mapInvestmentRow } from "../utils/mappers";
 
 export class InvestmentRepository{
     async findAll():Promise<Investment[]>{
