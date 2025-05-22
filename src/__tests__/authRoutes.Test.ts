@@ -18,14 +18,17 @@ beforeAll(async ()=>{
 
 describe('Auth Routes', ()=>{
     it('deve registrar um novo usuário', async  ()=>{
-        const res = await request(app).post('/register').send(user);
+        const res = await request(app)
+        .post('/auth/register')
+        .send(user);
+
         expect(res.statusCode).toBe(201);
         expect(res.body.message).toBe('User registered');
     });
 
     it('deve logar com usuário e senha corretos', async () =>{
         const res = await request(app)
-        .post('/login')
+        .post('/auth/login')
         .send({email: user.email, password: user.password});
 
         expect(res.statusCode).toBe(200);
@@ -36,7 +39,7 @@ describe('Auth Routes', ()=>{
 
     it('deve atualizar dados do usuário autenticado', async ()=>{
         const res = await request(app)
-        .put('/update')
+        .put('/auth/update')
         .set('Authorization', `bearer ${token}`)
         .send({tel: '01195452518'});
 
@@ -44,4 +47,12 @@ describe('Auth Routes', ()=>{
     expect(res.body.message).toBe('User updated');
     });
 
+    it('não deve permitir atualização sem token', async () => {
+        const res = await request(app)
+        .put('/auth/update')
+        .send({ tel: '000000000' });
+
+    expect(res.statusCode).toBe(401);
+    expect(res.body.error).toMatch(/Unauthourized/);
+    });
 });
