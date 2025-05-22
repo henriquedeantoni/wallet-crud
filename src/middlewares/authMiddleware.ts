@@ -19,18 +19,18 @@ declare global {
   }
 }
 
-export const authenticateToken = (req: Request, res: Response, next: NextFunction):void => {
+export const authenticateToken = (req: Request, res: Response, next: NextFunction) => {
   const authHeader = req.headers['authorization'];
-  const token = authHeader?.split(' ')[1];
+  const token = authHeader && authHeader.split(' ')[1];
 
   if (!token) {
-    res.sendStatus(401);
+    res.status(401).json({erro: 'Unauthorized: Token incorrect or not provided'});
     return;
   }
 
   jwt.verify(token, SECRET, (err, user) => {
     if (err) {
-        res.sendStatus(403);
+        res.sendStatus(403).json({ error: 'Unauthorized: Invalid token' });
         return;
     }
 

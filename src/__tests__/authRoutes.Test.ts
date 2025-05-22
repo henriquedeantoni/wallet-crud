@@ -53,6 +53,6 @@ describe('Auth Routes', ()=>{
         .send({ tel: '000000000' });
 
     expect(res.statusCode).toBe(401);
-    expect(res.body.error).toMatch(/Unauthourized/);
+    expect(res.body.error).toMatch('Unauthorized');
     });
 });
