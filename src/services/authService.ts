@@ -1,7 +1,8 @@
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
-import { User } from '../models/User';
 import { UserRepository } from '../repositories/UserRepository';
+import type { User } from '../models/User';
+
 import dotenv from 'dotenv';
 dotenv.config();
 
@@ -14,13 +15,17 @@ if (!secret) {
 const SECRET: string = secret;
 
 export class AuthService{
-    constructor(private userRepository = new UserRepository()){}
+    constructor(private userRepository = new UserRepository()) {}
 
-    async register(userData: Omit<User, 'id' | 'created_at' | 'updated_at'>){
-        const hashedPassword = await bcrypt.hash(userData.password,10);
-        await this.userRepository.create({...userData, password: hashedPassword});
-    }
 
+    async register(userData: any) {
+        const { email } = userData;
+        const existingUser = await this.userRepository.findByEmail(email);
+        if (existingUser) {
+            throw new Error('User already exists');
+        }
+        await this.userRepository.create(userData);
+  }
     async login(email:string, password: string): Promise<string> {
         const user = await this.userRepository.findByEmail(email);
         if (!user) throw new Error('User not found');

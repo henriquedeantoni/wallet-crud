@@ -1,6 +1,8 @@
 import request from 'supertest';
 import app from '../app';
 import { db } from '../config/database';
+import bcrypt from 'bcrypt';
+
 
 const user = {
   email: 'usertest@example.com',
@@ -40,7 +42,7 @@ describe('Auth Routes', ()=>{
     it('deve atualizar dados do usuário autenticado', async ()=>{
         const res = await request(app)
         .put('/auth/update')
-        .set('Authorization', `bearer ${token}`)
+        .set('Authorization', `Bearer ${token}`)
         .send({tel: '01195452518'});
 
     expect(res.statusCode).toBe(200);
