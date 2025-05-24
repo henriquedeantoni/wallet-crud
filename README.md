@@ -46,10 +46,10 @@ CREATE TABLE investments (
 ```
 CREATE TABLE assets (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    name VARCHAR(255) NOT NULL,       -- Nome completo: "Petrobras ON", "Bitcoin", etc.
-    symbol VARCHAR(50) NOT NULL,      -- Ticker: "PETR3", "BTC", etc.
-    type VARCHAR(100) NOT NULL,       -- Tipo: "ação", "cripto", "fundo", etc.
-    exchange VARCHAR(100),            -- Bolsa ou corretora: "B3", "Binance", etc.
+    name VARCHAR(255) NOT NULL,      
+    symbol VARCHAR(50) NOT NULL,     
+    type VARCHAR(100) NOT NULL,      
+    exchange VARCHAR(100),           
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
 
