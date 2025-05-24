@@ -1,4 +1,4 @@
-# Wallet-Crud
+    # Wallet-Crud
 
 ## Banco de Dados
 
@@ -26,6 +26,20 @@ CREATE TABLE users (
     upsadted_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
 ```
+- Assets
+```
+CREATE TABLE assets (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,      
+    symbol VARCHAR(50) NOT NULL,     
+    type VARCHAR(100) NOT NULL,      
+    exchange VARCHAR(100),           
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+
+    UNIQUE(symbol)
+);
+```
 - Investments
 ```
 CREATE TABLE investments (
@@ -42,19 +56,6 @@ CREATE TABLE investments (
     FOREIGN KEY (asset_id) REFERENCES assets(id) ON DELETE CASCADE
 );
 ```
-- Assets
-```
-CREATE TABLE assets (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    name VARCHAR(255) NOT NULL,      
-    symbol VARCHAR(50) NOT NULL,     
-    type VARCHAR(100) NOT NULL,      
-    exchange VARCHAR(100),           
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
 
-    UNIQUE(symbol)
-);
-```
 
 
