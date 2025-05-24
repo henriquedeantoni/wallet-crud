@@ -13,7 +13,7 @@ Criaçao do banco:
 CREATE DATABASE wallet_test_db;
 ```
 Criação das tabelas:
-
+- Users
 ```
 CREATE TABLE users (
     id INT AUTO_INCREMENT PRIMARY KEY,
@@ -26,3 +26,35 @@ CREATE TABLE users (
     upsadted_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
 ```
+- Investments
+```
+CREATE TABLE investments (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT NOT NULL,
+    asset_id INT NOT NULL,
+    quantity DECIMAL(10, 2) NOT NULL,
+    purchase_price DECIMAL(10, 2) NOT NULL,
+    purchase_date DATE NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+
+    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
+    FOREIGN KEY (asset_id) REFERENCES assets(id) ON DELETE CASCADE
+);
+```
+- Assets
+```
+CREATE TABLE assets (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,       -- Nome completo: "Petrobras ON", "Bitcoin", etc.
+    symbol VARCHAR(50) NOT NULL,      -- Ticker: "PETR3", "BTC", etc.
+    type VARCHAR(100) NOT NULL,       -- Tipo: "ação", "cripto", "fundo", etc.
+    exchange VARCHAR(100),            -- Bolsa ou corretora: "B3", "Binance", etc.
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+
+    UNIQUE(symbol)
+);
+```
+
+
