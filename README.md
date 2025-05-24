@@ -57,5 +57,10 @@ CREATE TABLE investments (
 );
 ```
 
+### Banco de produção
+
+As mesmas queries para criação do banco de testes podem ser usadas para o banco de produção
+
+
 
 
