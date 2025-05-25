@@ -31,7 +31,7 @@ describe('AuthService', () =>{
             firstName: 'John',
             lastName: 'Doe',
             tel: '219912031254',
-            password: 'fictionalpassword123456'
+            password: 'fictionalPassword123456'
         };
 
         await authService.register(userData);
@@ -45,7 +45,7 @@ describe('AuthService', () =>{
     });
 
     it('faz login com sucesso e retorna um token', async () => {
-        const originalPassword = '1234pass';
+        const originalPassword = 'fictionalPassword123456';
         const hashedPassword = await bcrypt.hash(originalPassword, 10);
 
         const mockUser: User = {

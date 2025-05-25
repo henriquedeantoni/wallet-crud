@@ -17,15 +17,26 @@ const SECRET: string = secret;
 export class AuthService{
     constructor(private userRepository = new UserRepository()) {}
 
+    private isStrongPassword(password: string): boolean {
+        const strongPasswordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/;
+        return strongPasswordRegex.test(password);
+    }
 
     async register(userData: any) {
-        const { email } = userData;
+        const { email, password } = userData;
         const existingUser = await this.userRepository.findByEmail(email);
         if (existingUser) {
             throw new Error('User already exists');
         }
+
+        if(!this.isStrongPassword(password)){
+            console.log('password: '+password);
+            throw new Error('Weak Password, must be at least 8 or more characters long!');
+        }
+
+        userData.password = await bcrypt.hash(password,10);
         await this.userRepository.create(userData);
-  }
+    }   
     async login(email:string, password: string): Promise<string> {
         const user = await this.userRepository.findByEmail(email);
         if (!user) throw new Error('User not found');
