@@ -14,7 +14,7 @@ export class UserRepository{
     async create(user: Omit<User, 'id' | 'createdAt' | 'updatedAt' >): Promise<void>{
         const{email, firstName, lastName, tel, password} = user;
         await db.query(
-            `INSERT INTO users (email, firstName, LastName, tel, password) VALUES (?,?,?,?,?)`,
+            `INSERT INTO users (email, first_name, Last_name, tel, password) VALUES (?,?,?,?,?)`,
             [email, firstName, lastName, tel, password]
         );
     }
@@ -41,7 +41,7 @@ export class UserRepository{
     
     values.push(id);
 
-    const query = `UPDATE users SET ${setClause}, upsadted_at = NOW() WHERE id = ?`;
+    const query = `UPDATE users SET ${setClause}, updated_at = NOW() WHERE id = ?`;
 
     await db.query(query, values);
   }

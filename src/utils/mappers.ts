@@ -18,8 +18,8 @@ export function mapUserRow(row: any): User {
   return {
     id: row.id,
     email: row.email,
-    firstName: row.firstName,
-    lastName: row.lastName,
+    firstName: row.first_name,
+    lastName: row.last_name,
     tel: row.tel,
     password: row.password,
     createdAt: row.created_at,
