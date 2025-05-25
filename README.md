@@ -1,5 +1,27 @@
     # Wallet-Crud
 
+## VARIÁVEIS DE AMBIENTE
+
+em produção:
+
+```
+DB_HOST=localhost_name
+DB_USER=user_name
+DB_PASSWORD=user_password
+DB_NAME=wallet_db
+SECRET_JWT=your_jwt_secret
+```
+
+em teste:
+
+```
+DB_HOST=localhost_name
+DB_USER=user_name
+DB_PASSWORD=user_password
+DB_NAME=wallet_test_db
+SECRET_JWT=your_jwt_secret
+```
+
 ## Banco de Dados
 
 Esta aplicação foi configurada para trabalhar com o banco de dados mySQL
