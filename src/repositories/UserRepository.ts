@@ -14,36 +14,44 @@ export class UserRepository{
     async create(user: Omit<User, 'id' | 'createdAt' | 'updatedAt' >): Promise<void>{
         const{email, firstName, lastName, tel, password} = user;
         await db.query(
-            `INSERT INTO users (email, first_name, Last_name, tel, password) VALUES (?,?,?,?,?)`,
+            `INSERT INTO users (email, first_name, last_name, tel, password) VALUES (?,?,?,?,?)`,
             [email, firstName, lastName, tel, password]
         );
     }
 
     
-  async update(
-    id: number,
-    updates: Partial<Omit<User, 'id'>>    
-  ):Promise<void>{
-    const fields = Object.keys(updates);
-    const values: (string | number | Date)[] = Object.values(updates);
+    async update(
+      id: number,
+      updates: Partial<Omit<User, 'id'| 'createdAt' | 'updatedAt' >>    
+    ):Promise<void> {
+    const mappedUpdates: Record<string, any> = {};
 
-    if(fields.length === 0) return;
-
-    const setClause = fields.map(field => {
-      switch (field) {
-        case 'firstName': return 'first_name = ?';
-        case 'lastName': return 'last_name = ?';
-        case 'createdAt': return 'created_at = ?';
-        case 'updatedAt': return 'updated_at = ?';
-        default: return `${field} = ?`;
+    for (const key in updates) {
+      const value = updates[key as keyof typeof updates];
+      if (value !== undefined) {
+        switch (key) {
+          case 'firstName':
+            mappedUpdates['first_name'] = value;
+            break;
+          case 'lastName':
+            mappedUpdates['last_name'] = value;
+            break;
+          default:
+            mappedUpdates[key] = value;
+        }
       }
-    }).join(', ');
-    
+    }
+
+    if (Object.keys(mappedUpdates).length === 0) return;
+
+    const fields = Object.keys(mappedUpdates);
+    const values = Object.values(mappedUpdates);
+
+    const setClause = fields.map((field) => `${field} = ?`).join(', ');
+    const sql = `UPDATE users SET ${setClause}, updated_at = NOW() WHERE id = ?`;
+
     values.push(id);
 
-    const query = `UPDATE users SET ${setClause}, updated_at = NOW() WHERE id = ?`;
-
-    await db.query(query, values);
+    await db.query(sql, values);
   }
-
 }
