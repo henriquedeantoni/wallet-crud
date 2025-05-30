@@ -19,7 +19,6 @@ export class UserRepository{
         );
     }
 
-    
     async update(
       id: number,
       updates: Partial<Omit<User, 'id'| 'createdAt' | 'updatedAt' >>    
